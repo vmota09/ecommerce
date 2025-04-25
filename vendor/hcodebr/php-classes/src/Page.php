@@ -14,7 +14,7 @@ class Page {
         "data"=>[]
     ];
 
-    public function __construct($opts = array())
+    public function __construct($opts = array()) //o primeiro a ser executado
     {
 
         $this->options = array_merge($this->defaults, $opts);
@@ -36,7 +36,7 @@ class Page {
 
     }
 
-    public function __destruct()
+    public function __destruct() //o ultimo a ser executado
     {
 
         if ($this->options['footer'] === true) $this->tpl->draw("footer", false);

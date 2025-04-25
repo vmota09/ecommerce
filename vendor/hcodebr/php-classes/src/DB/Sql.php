@@ -11,7 +11,7 @@ class Sql {
 
 	private $conn;
 
-	public function __construct()
+	public function __construct() //é executado primeiro
 	{
 
 		$this->conn = new \PDO(
@@ -40,7 +40,7 @@ class Sql {
 
 	}
 
-	public function query($rawQuery, $params = array())
+	public function query($rawQuery, $params = array()) //envia comandos SQL
 	{
 
 		$stmt = $this->conn->prepare($rawQuery);
@@ -51,7 +51,7 @@ class Sql {
 
 	}
 
-	public function select($rawQuery, $params = array()):array
+	public function select($rawQuery, $params = array()):array //envia comandos SQL e retorna do banco
 	{
 
 		$stmt = $this->conn->prepare($rawQuery);
@@ -65,5 +65,3 @@ class Sql {
 	}
 
 }
-
- ?>
