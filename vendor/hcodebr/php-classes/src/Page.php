@@ -14,14 +14,14 @@ class Page {
         "data"=>[]
     ];
 
-    public function __construct($opts = array()) //o primeiro a ser executado
+    public function __construct($opts = array(), $tpl_dir = "/ecommerce2/views/") //o primeiro a ser executado
     {
 
         $this->options = array_merge($this->defaults, $opts);
 
         $config = array(
             "base_url"      => null,
-            "tpl_dir"       => $_SERVER['DOCUMENT_ROOT']."/ecommerce2/views/", //caminho da pasta criada com os templates html
+            "tpl_dir"       => $_SERVER['DOCUMENT_ROOT'].$tpl_dir, //caminho da pasta criada com os templates html
             "cache_dir"     => $_SERVER['DOCUMENT_ROOT']."/ecommerce2/views-cache/",
             "debug"         => false
         );
