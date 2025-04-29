@@ -1,14 +1,15 @@
 <?php
+session_start();
+error_reporting(E_ALL & ~E_DEPRECATED);
 
 require_once("vendor/autoload.php");
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE); //some com os erros que dá pela versão antiga do slim
+require_once("functions.php");
 
-use \Hcode\PageAdmin;
+use Hcode\Model\User;
 
 $app = new \Slim\Slim();
 
 $app->config('debug', true);
-
 
 $app->get('/', function() {
 
@@ -18,16 +19,43 @@ $app->get('/', function() {
 
 });
 
-//parte do admin que ainda não funciona
+$app->get('/admin', function() {
 
-//$app->get('/admin', function() {
+    User::verifyLogin();
 
-    //$page = new \Hcode\PageAdmin();
+    $page = new Hcode\PageAdmin();
 
-    //$page->setTpl("index");
+    $page->setTpl("index");
 
-//});
+});
+
+$app->get('/admin/login', function() {
+
+    $page = new Hcode\PageAdmin([
+        "header"=>false,
+        "footer"=>false
+    ]);
+
+    $page->setTpl("login");
+
+});
+
+$app->post('/admin/login', function() {
+
+    User::login(post('deslogin'), post('despassword'));
+
+    header("Location: /admin");
+    exit;
+
+});
+
+$app->get('/admin/logout', function() {
+
+    User::logout();
+
+    header("Location: /admin/login");
+    exit;
+
+});
 
 $app->run();
-
-
